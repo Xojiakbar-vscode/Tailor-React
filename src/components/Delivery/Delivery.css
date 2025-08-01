@@ -1,0 +1,96 @@
+.yetqazish {
+  width: 80%;
+  padding: 5rem 0;
+  height: auto;
+  color: #a30f0f;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.yetqazish .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  max-width: 500px;
+}
+
+.yetqazish .text p {
+  font-size: 3.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.check-icon {
+  font-size: 7rem;
+  color: #a30f0f;
+}
+
+.delivery-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .yetqazish .text p {
+    font-size: 3rem;
+  }
+  
+  .check-icon {
+    font-size: 6rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .yetqazish {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 0;
+  }
+  
+  .yetqazish .text {
+    order: 1;
+  }
+  
+  .delivery-image {
+    order: 2;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yetqazish .text p {
+    font-size: 2.5rem;
+  }
+  
+  .check-icon {
+    font-size: 5rem;
+  }
+  
+  .yetqazish {
+    width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .yetqazish .text p {
+    font-size: 2rem;
+  }
+  
+  .check-icon {
+    font-size: 4rem;
+  }
+  
+  .delivery-image {
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,298 @@
+/* components/CatalogModal.css */
+.catalog-modal .modal-content {
+  height: auto;
+}
+
+.catalog-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* margin-left: 5rem; */
+}
+.catalog-title-icon{
+  width: 50px;
+  height:  50px;
+}
+.catalog-list {
+  list-style: none;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 24px;
+}
+
+.catalog-list li {
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.catalog-list li:hover {
+  color: #c53030;
+}
+
+.catalog-image {
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* components/CartModal.css */
+.cart-modal .modal-content {
+  padding: 20px;
+}
+
+.custom-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: red;
+  background-color: transparent;
+  border: 1px solid red;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  line-height: 24px;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1050;
+}
+
+.container-modal {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.usersection {
+  width: 30%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+.img-user-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #A30F0F;
+  margin-bottom: 1.5rem;
+}
+
+.img-user-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.usersection h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #A30F0F;
+}
+
+.usersection a {
+  color: #A30F0F;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.button-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.button-footer button {
+  background-color: #A30F0F;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.button-footer button.active {
+  background-color: white;
+  color: #A30F0F;
+  border: 1px solid #A30F0F;
+}
+
+.cartsection {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.cart-header h2 {
+  font-size: 1.8rem;
+  color: #A30F0F;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mahsulot__cards {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.mahsulot__cards img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-right: 1.5rem;
+}
+
+.mahsulot__card__tavsif p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.card-product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card-product-container article {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.photo-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.photo-container img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.x-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+  display: none;
+}
+
+.photo-container:hover .x-icon {
+  display: block;
+}
+
+.product-info h3 {
+  color: #A30F0F;
+  margin-bottom: 0.5rem;
+}
+
+.swipe-btn {
+  width: 100%;
+  height: 50px;
+  background: #eee;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+}
+
+.swipe-btn.active {
+  background-color: #A30F0F;
+  border-color: #A30F0F;
+}
+
+.swipe-handle {
+  width: 50px;
+  height: 100%;
+  background: #A30F0F;
+  border-radius: 25px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
+.swipe-btn.active .swipe-handle {
+  left: calc(100% - 50px);
+  opacity: 0;
+}
+
+.swipe-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-weight: bold;
+}
+
+.confirmed-text {
+  display: none;
+  color: white;
+}
+
+.swipe-btn.active .confirmed-text {
+  display: block;
+}
+
+.swipe-btn.active .initial-text {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container-modal {
+    flex-direction: column;
+  }
+  
+  .usersection {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .cartsection {
+    width: 100%;
+  }
+  
+  .mahsulot__cards {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .mahsulot__cards img {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
