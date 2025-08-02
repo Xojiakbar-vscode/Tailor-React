@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <article className="product-card">
+    <article className="product-card" data-aos="fade-up">
       <div className="card">
         <div
           className={`heart ${isFavorite ? "active" : ""}`}

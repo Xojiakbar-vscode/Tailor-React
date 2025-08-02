@@ -3,7 +3,7 @@ import "./AdBanner.css"; // CSS ni alohida faylga ajratamiz
 
 const AdBanner = () => {
   return (
-    <section className="ad-banner">
+    <section className="ad-banner" data-aos="fade-down">
       <div className="ad-content">
         <h2>REKLAMA</h2>
       </div>

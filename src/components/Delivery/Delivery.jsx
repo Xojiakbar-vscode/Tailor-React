@@ -5,7 +5,7 @@ import "./Delivery.css";
 
 const Delivery = () => {
   return (
-    <section className="yetqazish">
+    <section className="yetqazish" data-aos="fade-up">
       <div className="text">
         <p>O'zbekiston bo'ylab yetqazib beramiz!</p>
         <FaCheckCircle className="check-icon" />

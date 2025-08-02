@@ -4,9 +4,12 @@ import logoImg from "../../assets/1.svg";
 import heroImg from "../../assets/img.png";
 import { HiOutlineUserCircle, HiBars3 } from "react-icons/hi2";
 
+
 const HomeNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+
+
 
   // Tashqariga bosilganda yopish
   useEffect(() => {
@@ -64,7 +67,7 @@ const HomeNav = () => {
       <section className="hero">
         <img src={heroImg} alt="Tikuvchilik mahsulotlari" className="none" />
         <div className="hero-content">
-          <h2>Tikuvchilik uchun hammasi bir joyda!</h2>
+          <h2 data-aos="fade-down">Tikuvchilik uchun hammasi bir joyda!</h2>
           <p className="fade-in">
             Eng sifatli mahsulotlar — Tailor Shop Namangan da.
           </p>

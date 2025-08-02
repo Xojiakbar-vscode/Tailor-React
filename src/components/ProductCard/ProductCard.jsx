@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import "./ProductCard.css";
 import { Link } from 'react-router-dom';
-
+import satinImg from "../../assets/satin.png";
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [rating, setRating] = useState(1); // Default 1 star rating
@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <article className="product-card">
+    <article className="product-card" data-aos="fade-up">
       <div className="card">
         <div 
           className={`heart ${isFavorite ? "active" : ""}`}
@@ -47,34 +47,34 @@ const ProductCards = () => {
       id: 1,
       name: "Mahsulot nomi 1",
       description: "Mahsulot haqida qisqacha ma'lumot",
-      image: "../src/assets/satin.png",
+      image: satinImg
     },
     {
       id: 2,
       name: "Mahsulot nomi 2",
       description: "Mahsulot haqida qisqacha ma'lumot",
-           image: "../src/assets/satin.png",
+           image: satinImg
 
     },
     {
       id: 3,
       name: "Mahsulot nomi 3",
       description: "Mahsulot haqida qisqacha ma'lumot",
-           image: "../src/assets/satin.png",
+           image: satinImg
 
     },
     {
       id: 4,
       name: "Mahsulot nomi 4",
       description: "Mahsulot haqida qisqacha ma'lumot",
-           image: "../src/assets/satin.png",
+           image: satinImg
 
     },
     {
       id: 5,
       name: "Mahsulot nomi 5",
       description: "Mahsulot haqida qisqacha ma'lumot",
-           image: "../src/assets/satin.png",
+           image: satinImg
 
     },
   ];
@@ -90,9 +90,11 @@ const ProductCards = () => {
     </section>
      <div class="button">
 
+      <button className="yana">
+
    <Link to="/yana" className="yana">yana</Link>
 
-
+</button>
   </div>
     </>
   );

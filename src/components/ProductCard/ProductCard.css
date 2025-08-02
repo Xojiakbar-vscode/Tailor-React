@@ -79,7 +79,7 @@
   transition: background-color 0.3s ease;
   text-align: center;
 }
-.button a button {
+.button  button {
   background-color: none;
   color: #a30f0f;
   font-size: 1.5rem;
@@ -88,7 +88,13 @@
   border-radius: 3rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
+  /* width: 100%; */
+
+}
+.button button .yana{
+  color: red;
+  text-decoration: none;
+  text-transform: capitalize;
 }
 .heart.active svg {
   color: #f44336;

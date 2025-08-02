@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 
 export default function Slider() {
   return (
-    <div style={{ width: "90%", margin: "0 auto" }}>
+    <div style={{ width: "90%", margin: "0 auto" }} data-aos="fade-down">
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         spaceBetween={20}

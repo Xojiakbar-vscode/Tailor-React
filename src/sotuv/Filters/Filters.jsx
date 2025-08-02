@@ -9,7 +9,7 @@ import img5 from "../../assets/2-removebg-preview (2).png";
 
 const Filters = () => {
   return (
-    <section className="filters">
+    <section className="filters" data-aos="fade-up">
       <button className="filter-btn">
         <img src={img1} alt="Ninalar" />
         Ninalar

@@ -8,13 +8,13 @@ const About = () => {
   return (
   <section className="about">
       <div className="about-heading" id="aboutSection">
-        <h3>
+        <h3 data-aos="fade-right">
           Bizning do'konimizda siz profesional va havaskor tikuvchilar uchun kerak 
           bo'ladigan barcha mahsulotlarni topasiz:
         </h3>
       </div>
       
-      <div className="about-main" id="aboutSection1">
+      <div className="about-main" id="aboutSection1" data-aos="fade-right">
         <ul>
           <li>Turli rangdagi va turdagi iplar</li>
           <li>Tugmalar, fermuarlar, aksessuarlar</li>
@@ -27,7 +27,7 @@ const About = () => {
         />
       </div>
       
-      <div className="about-footer" id="aboutSection2">
+      <div className="about-footer" data-aos="fade-right" id="aboutSection2">
         <img 
           src={aboutImg2} 
           alt="Tikuvchilik aksessuarlari" 

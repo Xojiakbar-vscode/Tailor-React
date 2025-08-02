@@ -1,11 +1,17 @@
-import React from 'react';
+import {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home/Home';
 import SotuvHome from './sotuv/Home/SotuvHome';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const App = () => {
+    useEffect(() => {
+      AOS.init({
+         duration: 1000,
+          once: false });
+    }, []);
   return (
     <Router>
       <Routes>
