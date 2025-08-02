@@ -132,11 +132,18 @@
   
   .search-container {
     order: 3;
-    width: 100%;
+    width: 400px;
     margin: 0.5rem 0;
   }
   
   .logo-text {
     display: none;
+  }
+}
+@media (max-width: 480px){
+   .search-container {
+    order: 3;
+    width: 400px;
+    margin: 0.5rem 0;
   }
 }
