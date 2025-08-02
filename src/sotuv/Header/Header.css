@@ -70,7 +70,7 @@
 .search-container {
   flex: 1;
   max-width: 500px;
-  min-width: 400px;
+  min-width: 325px;
   margin: 0 2rem;
   display: flex;
   border: 1px solid #a30f0f;
@@ -132,7 +132,7 @@
   
   .search-container {
     order: 3;
-    width: 400px;
+    width: 100%;
     margin: 0.5rem 0;
   }
   
@@ -143,7 +143,7 @@
 @media (max-width: 480px){
    .search-container {
     order: 3;
-    width: 400px;
+    width: 100%;
     margin: 0.5rem 0;
   }
 }
