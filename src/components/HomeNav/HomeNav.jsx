@@ -8,26 +8,24 @@ const HomeNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // Close menu when clicking outside
+  // Tashqariga bosilganda yopish
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    
     if (isOpen) {
       document.addEventListener("click", handleClickOutside);
       return () => document.removeEventListener("click", handleClickOutside);
     }
   }, [isOpen]);
 
-  // Close menu on escape key press
+  // Escape tugmasi bilan yopish
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") setIsOpen(false);
     };
-    
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
@@ -35,42 +33,35 @@ const HomeNav = () => {
   return (
     <div className="header">
       <header>
-        {/* Menu Button and Navigation */}
+        {/* Chap tomonda menyu tugmasi */}
         <div className="menu-area" ref={menuRef}>
-          <button 
+          <button
             className={`menu-btn ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-label="Menyuni ochish"
-            aria-controls="main-menu"
           >
             <HiBars3 className="menu-icon" />
             <span>Menu</span>
           </button>
 
-          <nav 
-            className={`navbar ${isOpen ? "open" : ""}`}
-            id="main-menu"
-            aria-hidden={!isOpen}
-          >
-            <a href="#" onClick={() => setIsOpen(false)}>Buyurtmalarni ko'rish</a>
+          <nav className={`navbar ${isOpen ? "open" : ""}`}>
+            <a href="#" onClick={() => setIsOpen(false)}>Buyurtmalarni ko‘rish</a>
             <a href="#" onClick={() => setIsOpen(false)}>Mahsulotlar</a>
           </nav>
         </div>
 
-        {/* Logo */}
+        {/* O‘rtada logo */}
         <div className="logo">
-          <img src={logoImg} alt="Tailor Shop Logo" className="block" />
+          <img src={logoImg} alt="Tailor Shop Logo" />
         </div>
 
-        {/* User Icon */}
+        {/* O‘ng tomonda user icon */}
         <div className="right-icons">
           <HiOutlineUserCircle className="user-icon" />
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="hero" id="aboutSection3">
+      {/* Hero bo‘lim */}
+      <section className="hero">
         <img src={heroImg} alt="Tikuvchilik mahsulotlari" className="none" />
         <div className="hero-content">
           <h2>Tikuvchilik uchun hammasi bir joyda!</h2>

@@ -6,10 +6,13 @@
   top: 0;
   z-index: 1000;
   width: 100%;
+  background-color: white;
 }
 
 .header-container {
   display: flex;
+    flex-wrap: wrap;
+
   align-items: center;
   justify-content: space-between;
   width: 90%;
@@ -67,6 +70,7 @@
 .search-container {
   flex: 1;
   max-width: 500px;
+  min-width: 400px;
   margin: 0 2rem;
   display: flex;
   border: 1px solid #a30f0f;

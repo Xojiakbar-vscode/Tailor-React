@@ -20,10 +20,11 @@ header {
   z-index: 100;
 }
 
-/* Menu Button */
 .menu-area {
-  position: relative;
+  position: relative; /* 🔹 navbar faqat shu elementga nisbatan joylashadi */
   z-index: 101;
+  top: 60px;
+  display: inline-block; /* faqat o‘z ichidagi tugma joyini egallasin */
 }
 
 .menu-btn {
@@ -58,7 +59,7 @@ header {
 /* Navigation Menu */
 .navbar {
   position: absolute;
-  top: 100%;
+  top: 100%; /* 🔹 menu tugmasining pastida chiqadi */
   left: 0;
   background: white;
   border-radius: 8px;
@@ -76,14 +77,18 @@ header {
   opacity: 1;
   visibility: visible;
 }
-
+.navbar {
+  display: block; /* flex bo'lsa olib tashla */
+}
 .navbar a {
   display: block;
+  width: 100%; /* 🔹 butun uzunlikni egallasin */
   padding: 0.75rem 1.5rem;
   color: #a30f0f;
   text-decoration: none;
   transition: all 0.2s ease;
   font-weight: 500;
+  box-sizing: border-box; /* padding kenglikka ta’sir qilmasin */
 }
 
 .navbar a:hover {
@@ -208,6 +213,9 @@ header {
     max-width: 300px;
     margin: 0 auto;
   }
+  header .logo img{
+    display: none;
+  }
   
 }
 
@@ -238,4 +246,75 @@ header {
     max-width: 300px;
     margin: 0 auto;
   }
+}
+header {
+  position: relative;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 100;
+}
+
+/* Menyu tugmasi chap tomonda */
+.menu-area {
+  position: relative;
+  z-index: 101;
+}
+
+/* Logo markazda absolute */
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+/* User icon o‘ngda */
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-icon {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Navbar menyu */
+.navbar {
+  position: absolute;
+  top: 100%; /* tugma pastida chiqadi */
+  left: 0;
+  width: 220px;
+  background: white;
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.navbar.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbar a {
+  display: block;
+  padding: 0.75rem 1.2rem;
+  color: #a30f0f;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background: #f8f8f8;
+  color: #7a0b0b;
 }

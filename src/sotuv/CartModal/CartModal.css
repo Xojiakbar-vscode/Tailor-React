@@ -1,3 +1,4 @@
+/* ==== Modal umumiy ==== */
 .cart-modal .modal-content {
   min-height: 90vh;
   max-height: 90vh;
@@ -6,51 +7,57 @@
   padding: 0;
 }
 
-.custom-close {
+/* ==== Bars tugma ==== */
+.side-toggle-btn {
+  display: none;
   position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 1.5rem;
-  color: red;
-  background-color: white;
-  border: 1px solid red;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
+  top: 15px;
+  left: 15px;
+  background: #A30F0F;
+  color: white;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 4px;
+  z-index: 1100;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+.side-toggle-btn:hover {
+  background: #870c0c;
 }
 
+/* ==== Layout ==== */
 .container-modal {
   display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: column;
   overflow: hidden;
 }
 
+/* ==== Chap panel ==== */
 .usersection {
-  width: 100%;
-  padding: 1.5rem;
+  width: 30%;
+  height: 100vh;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
   background-color: #f8f8f8;
-  border-bottom: 1px solid #ddd;
+  gap: 1rem;
+  color: #A30F0F;
 }
 
 .img-user-container {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
   overflow: hidden;
-  border: 3px solid #A30F0F;
-  margin-bottom: 1rem;
+  border: 5px solid #A30F0F;
 }
-
 .img-user-container img {
   width: 100%;
   height: 100%;
@@ -58,135 +65,95 @@
 }
 
 .usersection h2 {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: #A30F0F;
-  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
 }
-
 .usersection a {
   color: #A30F0F;
   text-decoration: none;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  font-size: 1.2rem;
 }
 
+/* Tugmalar */
 .button-footer {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
   width: 100%;
 }
-
 .button-footer button {
   background-color: #A30F0F;
   color: white;
-  border: none;
   padding: 0.8rem;
   border-radius: 50px;
+  border: none;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.9rem;
+}
+.button-footer button:hover {
+  background: none;
+  border: 1px solid #A30F0F;
+  color: #A30F0F;
+}
+
+/* ==== O‘ng panel ==== */
+.cartsection {
+  width: 100%;
+  height: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-header {
+  text-align: center;
+  color: #A30F0F;
+}
+.cart-header h2 {
+  font-size: 1.8rem;
   font-weight: 600;
 }
 
-.cartsection {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-}
-
-.cart-header h2 {
-  font-size: 1.4rem;
-  color: #A30F0F;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
+/* ==== Buyurtma kartalari ==== */
 .mahsulot__cards {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: white;
+  box-shadow: 5px 5px 20px 10px rgba(0, 0, 0, 0.1);
+  color: #A30F0F;
+  font-weight: 700;
+  margin: 1rem 0;
+  padding: 0.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.mahsulot__cards img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-
-.mahsulot__card__tavsif p {
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.card-product-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.card-product-container article {
-  background-color: white;
-  border-radius: 8px;
-  padding: 0.8rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.photo-container {
-  position: relative;
-  margin-bottom: 0.5rem;
-}
-
-.photo-container img {
-  width: 100%;
-  height: 120px;
-  object-fit: contain;
-}
-
-.x-icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 1.2rem;
-  color: red;
-  cursor: pointer;
   background: white;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+.mahsulot__cards img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.mahsulot__card__tavsif {
+  padding: 1rem;
+  font-size: 1.1rem;
 }
 
+/* ==== Swipe tugma ==== */
 .swipe-btn {
   width: 100%;
-  height: 45px;
+  height: 50px;
   background: #eee;
   border-radius: 25px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   border: 2px solid #ddd;
-  margin: 1rem 0;
 }
-
 .swipe-btn.active {
   background-color: #A30F0F;
   border-color: #A30F0F;
 }
-
 .swipe-handle {
-  width: 45px;
+  width: 50px;
   height: 100%;
   background: #A30F0F;
   border-radius: 25px;
@@ -197,66 +164,75 @@
   align-items: center;
   justify-content: center;
   color: white;
-  transition: all 0.3s;
 }
-
-.swipe-btn.active .swipe-handle {
-  left: calc(100% - 45px);
-}
-
 .swipe-text {
-  position: absolute;
   width: 100%;
   height: 100%;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
   font-weight: 600;
 }
 
-/* Tablet styles */
-@media (min-width: 768px) {
-  .container-modal {
-    flex-direction: row;
+/* ==== Mobil uchun chapdan chiqish ==== */
+@media (max-width: 768px) {
+  .side-toggle-btn {
+    display: block;
   }
-  
   .usersection {
-    width: 30%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
     height: 100%;
-    border-right: 1px solid #ddd;
-    border-bottom: none;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1055;
   }
-  
+  .usersection.open {
+    transform: translateX(0);
+  }
   .cartsection {
-    width: 70%;
-  }
-  
-  .mahsulot__cards {
-    flex-direction: row;
-    text-align: left;
-  }
-  
-  .mahsulot__cards img {
-    margin-right: 1rem;
-    margin-bottom: 0;
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    padding: 1rem;
   }
 }
 
-/* Desktop styles */
-@media (min-width: 992px) {
-  .img-user-container {
-    width: 120px;
-    height: 120px;
-  }
-  
-  .usersection h2 {
-    font-size: 1.5rem;
-  }
-  
-  .card-product-container {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  }
+.swipe-btn {
+ 
+  width: 300px;
+  margin: 0 auto;
+  height: 50px;
+  background: #eee;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #ddd;
+}
+.swipe-handle {
+  width: 50px;
+  height: 100%;
+  background: #A30F0F;
+  border-radius: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: none; /* Drag paytida animatsiya yo'q */
+}
+.swipe-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.swipe-btn.active {
+  background-color: #A30F0F;
+  color: white;
 }

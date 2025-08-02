@@ -1,0 +1,44 @@
+.filters {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  
+}
+
+.filter-btn {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+    background-color: #f0f0f0;
+border-radius: 50px;
+  gap: 5px;
+  border: none;
+padding: .5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.filter-btn img {
+  width: 60px;
+  height: 60px;
+}
+
+.filters .filter-btn:nth-child(3) img {
+  width: 40px;
+  height: 50px;
+}
+
+.filters .filter-btn:nth-child(3) {
+  padding: 30px auto;
+  height: 60px;
+}
+
+/* 📌 768px - 991px oralig‘ida butunlay yo‘qoladi */
+@media (min-width: 768px) and (max-width: 991px) {
+  .filters {
+    display: none;
+  }
+}
