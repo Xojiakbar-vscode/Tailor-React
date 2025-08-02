@@ -11,6 +11,7 @@ import User from "../../images/user.png";
 import Savat from "../../images/Savat.png";
 import CatalogModal from '../CatalogModal/CatalogModal';
 import CartModal from '../CartModal/CartModal';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [showCatalogModal, setShowCatalogModal] = useState(false);
@@ -21,11 +22,12 @@ const Header = () => {
       <div className="header-container">
         {/* Logo */}
         <div className="logo-container">
-          <img 
+         <Link to="/"> <img 
             src={TailorLogo} 
             alt="Tailor Shop Namangan" 
             className="logo-image"
           />
+          </Link>
         </div>
         
         {/* Catalog Button */}

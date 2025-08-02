@@ -46,7 +46,7 @@ const CatalogModal = ({ show, onHide }) => {
       aria-labelledby="catalogModalLabel"
       className="catalog-modal"
     >
-      <div style={{ backgroundColor: 'white', color: 'black', height: '90vh' }}>
+      <div style={{ backgroundColor: 'white', color: 'black', padding: "2rem 0" }}>
         <Modal.Header>
           <Modal.Title id="catalogModalLabel" className="catalog-modal-title">
            
