@@ -196,3 +196,8 @@
     font-size: 1.2rem;
   }
 }
+@media (max-width: 417px) {
+  .card_container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }}

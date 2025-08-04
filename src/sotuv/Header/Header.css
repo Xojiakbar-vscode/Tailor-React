@@ -139,6 +139,16 @@
   .logo-text {
     display: none;
   }
+    .header-container{
+    justify-content: center;
+    align-items: center;
+  }
+  .catalog-button{
+    display: none;
+  }
+  .icon-group{
+    display: none;
+  }
 }
 @media (max-width: 480px){
    .search-container {

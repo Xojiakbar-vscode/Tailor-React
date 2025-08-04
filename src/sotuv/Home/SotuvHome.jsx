@@ -5,6 +5,7 @@ import Swiper from '../Swiper/Swiper';
 import Filters from '../Filters/Filters';
 import ProductCards from '../ProductCard/ProductCard';
 import AdBanner from '../AdBanner/AdBanner';
+import FooterNavbar from '../FooterNavbar/FooterNavbar';
 const SotuvHome = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const SotuvHome = () => {
       <Filters/>
      <ProductCards/>
      <AdBanner/>
+     <FooterNavbar/>
     </div>
   )
 }

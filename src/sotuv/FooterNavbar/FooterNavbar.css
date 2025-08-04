@@ -1,0 +1,41 @@
+.footer-navbar {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    display: none; /* Desktopda ko‘rinmasin */
+    padding: 8px 0;
+    border-top: 1px solid #ddd;
+    z-index: 999;
+}
+
+.footer-navbar p {
+    text-align: center;
+    color: #A30F0F;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.footer-navbar div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-navbar img {
+    width: 7.5vw;
+    height: 7.5vw;
+    object-fit: contain;
+}
+
+/* Faqat mobil ekranlarda chiqadi */
+@media (max-width: 768px) {
+    .footer-navbar {
+        display: flex;
+    }
+}
