@@ -19,10 +19,10 @@ const FooterNavbar = () => {
   return (
     <div className="footer-navbar">
       {/* Bosh sahifa */}
-      <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+      <Link to="/" onClick={() => window.scrollTo(0, 0)} style={{textDecoration: "none"}}>
         <div>
           <img src={Logo} alt="Bosh sahifa" />
-          <p>Sahifaga qaytish</p>
+          <p >Sahifaga qaytish</p>
         </div>
       </Link>
 
@@ -42,9 +42,9 @@ const FooterNavbar = () => {
       <div
         className="katalog catalog-trigger-1"
         onClick={() => setShowCatalogModal(true)}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer"}}
       >
-        <img src={Katalog} alt="Katalog" />
+        <img src={Katalog} alt="Katalog" style={{width: "6vw", height: "6vw" }} />
         <p>Katalog</p>
       </div>
 

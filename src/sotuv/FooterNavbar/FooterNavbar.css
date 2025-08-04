@@ -32,6 +32,10 @@
     height: 7.5vw;
     object-fit: contain;
 }
+.footer-navbar .catalog-button  img{
+width:  7vw;
+    height: 7vw;
+}
 
 /* Faqat mobil ekranlarda chiqadi */
 @media (max-width: 768px) {
