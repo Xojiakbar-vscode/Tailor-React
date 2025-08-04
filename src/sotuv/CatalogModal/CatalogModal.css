@@ -1,11 +1,10 @@
 /* components/CatalogModal.css */
 .catalog-modal .modal-content {
   height: auto;
-  padding: 0;
 }
 .modal-header{
     width: 100%;
-    padding: 1rem 2.5rem;
+    padding: 1rem 5rem;
  
 }
 .catalog-modal-title {
