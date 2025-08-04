@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import "./HomeNav.css";
 import logoImg from "../../assets/1.svg";
 import heroImg from "../../assets/img.png";
+import CartModal from "../../sotuv/CartModal/CartModal";
+import { Link } from "react-router-dom";
+
 import { HiOutlineUserCircle, HiBars3 } from "react-icons/hi2";
 
 
@@ -32,7 +35,7 @@ const HomeNav = () => {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
-
+    const [showCartModal, setShowCartModal] = useState(false);
   return (
     <div className="header">
       <header>
@@ -47,8 +50,8 @@ const HomeNav = () => {
           </button>
 
           <nav className={`navbar ${isOpen ? "open" : ""}`}>
-            <a href="#" onClick={() => setIsOpen(false)}>Buyurtmalarni ko‘rish</a>
-            <a href="#" onClick={() => setIsOpen(false)}>Mahsulotlar</a>
+            <a href="#" onClick={() => setShowCartModal(true)}>Buyurtmalarni ko‘rish</a>
+            <Link to="/yana" className="yana">Mahsulotlar</Link>
           </nav>
         </div>
 
@@ -75,6 +78,10 @@ const HomeNav = () => {
         </div>
         <div className="hero-spacer"></div>
       </section>
+       <CartModal
+        show={showCartModal}
+        onHide={() => setShowCartModal(false)}
+      />
     </div>
   );
 };

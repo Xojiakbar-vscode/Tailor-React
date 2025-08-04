@@ -105,7 +105,7 @@ const CartModal = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide} fullscreen className="cart-modal">
       <Modal.Body>
-        <button className="custom-close" onClick={onHide}>×</button>
+        <button className="custom-close" style={{border: "none"}} onClick={onHide}>×</button>
         {/* Bars icon */}
         <button
           className="side-toggle-btn"
@@ -147,6 +147,14 @@ const CartModal = ({ show, onHide }) => {
                   <h2>Buyurtma qilingan mahsulotlar</h2>
                 </div>
                 <div className="mahsulot__cards">
+                  <img src={ProductImage} alt="Mahsulot" />
+                  <div className="mahsulot__card__tavsif">
+                    <p>Mahsulot: Ip</p>
+                    <p>Nomi: Ming Long #500</p>
+                    <p>Buyurtma sanasi: 03.06.25</p>
+                  </div>
+                </div>
+                 <div className="mahsulot__cards">
                   <img src={ProductImage} alt="Mahsulot" />
                   <div className="mahsulot__card__tavsif">
                     <p>Mahsulot: Ip</p>

@@ -15,6 +15,12 @@
 
   
 }
+.side-toggle-btn{
+  width: 60px;
+  padding: 0;
+  height: 40px;
+  font-size: 1rem;
+}
 .catalog-title-icon{
   width: 50px;
   height:  50px;
@@ -292,11 +298,14 @@
   .cartsection {
     width: 100%;
   }
-  
-  .mahsulot__cards {
-    flex-direction: column;
-    text-align: center;
+  .cart-header h2{
+    font-size: 1rem;
+    padding-left: 2rem;
   }
+.mahsulot__card__tavsif p {
+  padding: 0;
+  font-size: .8rem !important;
+}
   
   .mahsulot__cards img {
     margin-right: 0;
