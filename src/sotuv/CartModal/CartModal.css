@@ -1,7 +1,7 @@
 /* ==== Modal umumiy ==== */
 .cart-modal .modal-content {
   min-height: 90vh;
-  max-height: 90vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -90,11 +90,11 @@
   font-weight: 600;
   cursor: pointer;
 }
-.button-footer button:hover {
+/* .button-footer button:hover {
   background: none;
   border: 1px solid #A30F0F;
   color: #A30F0F;
-}
+} */
 
 /* ==== O‘ng panel ==== */
 .cartsection {

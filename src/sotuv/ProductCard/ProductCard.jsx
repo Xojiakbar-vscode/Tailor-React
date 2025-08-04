@@ -7,7 +7,7 @@ import satinImg from "../../assets/satin.png"; // ✅ Bir marta import qilinadi
 
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(4);
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);

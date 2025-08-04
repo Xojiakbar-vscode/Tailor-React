@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import satinImg from "../../assets/satin.png";
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [rating, setRating] = useState(1); // Default 1 star rating
+  const [rating, setRating] = useState(5); // Default 1 star rating
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);

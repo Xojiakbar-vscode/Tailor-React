@@ -124,13 +124,13 @@ const CartModal = ({ show, onHide }) => {
             <a href="tel:+998913560408">+998 (91) 356-04-08</a>
             <div className="button-footer">
               <button
-                onClick={() => setShowOldOrders(false)}
+                onClick={() => setShowOldOrders(true)}
                 className={!showOldOrders ? "active" : ""}
               >
                 Yangi buyurtmalar
               </button>
               <button
-                onClick={() => setShowOldOrders(true)}
+                onClick={() => setShowOldOrders(false)}
                 className={showOldOrders ? "active" : ""}
               >
                 Qilingan buyurtmalar

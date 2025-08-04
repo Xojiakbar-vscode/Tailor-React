@@ -146,4 +146,14 @@
     width: 100%;
     margin: 0.5rem 0;
   }
+  .header-container{
+    justify-content: center;
+    align-items: center;
+  }
+  .catalog-button{
+    display: none;
+  }
+  .icon-group{
+    display: none;
+  }
 }
