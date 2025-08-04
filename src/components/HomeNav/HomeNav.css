@@ -51,10 +51,10 @@ header {
 }
 
 .user-icon{
-    width: 6vw;
-    height: 6vw;
-   min-width: 50px;
-    min-height: 50px;
+    width: 5vw;
+    height: 5vw;
+   min-width: 40px;
+    min-height: 40px;
 }
 /* Navigation Menu */
 .navbar {
@@ -170,6 +170,9 @@ header {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .hero{
+    justify-content: space-between;
+  }
   header {
     height: 70px;
     padding: 0.5rem 3%;

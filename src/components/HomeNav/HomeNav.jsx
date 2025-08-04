@@ -71,8 +71,9 @@ const HomeNav = () => {
           <p className="fade-in">
             Eng sifatli mahsulotlar — Tailor Shop Namangan da.
           </p>
-          <div className="hero-spacer"></div>
+          
         </div>
+        <div className="hero-spacer"></div>
       </section>
     </div>
   );

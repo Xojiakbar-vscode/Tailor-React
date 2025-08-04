@@ -67,8 +67,10 @@
 }
 
 .contact-form {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   display: flex;
+  gap: 20px;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -260,7 +262,7 @@
   }
   
   .qr-section {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
   
   .qr-wrapper {
