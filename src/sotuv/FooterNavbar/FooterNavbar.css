@@ -25,6 +25,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: .2rem;
 }
 
 .footer-navbar img {
@@ -32,9 +33,11 @@
     height: 7.5vw;
     object-fit: contain;
 }
-.footer-navbar .catalog-button  img{
-width:  7vw;
-    height: 7vw;
+.footer-navbar .Katicon{
+      width: 7.5vw;
+    height: 7.5vw;
+    object-fit: contain;
+    color: #A30F0F;
 }
 
 /* Faqat mobil ekranlarda chiqadi */

@@ -89,7 +89,7 @@ const Footer = () => {
         </form>
       </div>
 
-      <div className="qr-section">
+      {/* <div className="qr-section">
         <div className="qr-block">
           <FaTelegram className="qr-icon" />
           <img src={telegramQr} alt="Telegram QR" width="100" />
@@ -113,7 +113,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </footer>
   );
 };

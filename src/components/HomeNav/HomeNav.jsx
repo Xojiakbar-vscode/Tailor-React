@@ -55,7 +55,7 @@ const HomeNav = () => {
           </nav>
         </div>
 
-        {/* O‘rtada logo */}
+        {/* O‘rtada logo */}``
         <div className="logo">
           <img src={logoImg} alt="Tailor Shop Logo" />
         </div>

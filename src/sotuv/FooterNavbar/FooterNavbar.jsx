@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./FooterNavbar.css";
+import { CiSearch } from "react-icons/ci";
 
 import Like from "../../images/Live.png";
 import Logo from "../../images/Logo.png";
@@ -22,20 +23,20 @@ const FooterNavbar = () => {
       <Link to="/" onClick={() => window.scrollTo(0, 0)} style={{textDecoration: "none"}}>
         <div>
           <img src={Logo} alt="Bosh sahifa" />
-          <p >Sahifaga qaytish</p>
+          <p >Bosh sahifa</p>
         </div>
       </Link>
 
       {/* Buyurtmalar */}
       <div onClick={() => setShowCartModal(true)} style={{ cursor: "pointer" }}>
         <img src={Savat} alt="Buyurtmalar" />
-        <p>Buyurtmalar</p>
+        <p>Savat</p>
       </div>
 
       {/* Yoqtirganlarim */}
       <div>
         <img src={Like} alt="Yoqtirganlarim" />
-        <p>Yoqtirganlarim</p>
+        <p>Sevimli</p>
       </div>
 
       {/* Katalog */}
@@ -44,7 +45,7 @@ const FooterNavbar = () => {
         onClick={() => setShowCatalogModal(true)}
         style={{ cursor: "pointer"}}
       >
-        <img src={Katalog} alt="Katalog" style={{width: "6vw", height: "6vw" }} />
+        <CiSearch className="Katicon"/>
         <p>Katalog</p>
       </div>
 
