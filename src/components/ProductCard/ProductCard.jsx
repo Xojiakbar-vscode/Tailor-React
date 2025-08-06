@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import "./ProductCard.css";
 import { Link } from 'react-router-dom';
-import satinImg from "../../assets/satin.png";
+
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [rating, setRating] = useState(5); // Default 1 star rating
+  const [rating, setRating] = useState(5); // Default 5 yulduz
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
   };
 
   return (
-    <article className="product-card" data-aos="fade-up">
+    <article className="product-card">
       <div className="card">
-        <div 
+        <div
           className={`heart ${isFavorite ? "active" : ""}`}
           onClick={toggleFavorite}
         >
           {isFavorite ? <FaHeart /> : <FaRegHeart />}
         </div>
-        <img src={product.image} alt={product.name} />
+        <img
+          src={product.image}
+          alt={product.name}
+          onError={(e) => (e.target.src = "/placeholder-product.jpg")}
+        />
       </div>
       <h3>{product.name}</h3>
       <p>{product.description}</p>
+      <p>{product.price}</p>
       <div className="rating">
         {[1, 2, 3, 4, 5].map((star) => (
-          <FaStar 
+          <FaStar
             key={star}
             className={star <= rating ? "checked" : ""}
             onClick={() => setRating(star)}
@@ -41,61 +46,46 @@ const ProductCard = ({ product }) => {
 };
 
 const ProductCards = () => {
-  // Sample product data
-  const products = [
-    {
-      id: 1,
-      name: "Mahsulot nomi 1",
-      description: "Mahsulot haqida qisqacha ma'lumot",
-      image: satinImg
-    },
-    {
-      id: 2,
-      name: "Mahsulot nomi 2",
-      description: "Mahsulot haqida qisqacha ma'lumot",
-           image: satinImg
+  const [products, setProducts] = useState([]);
 
-    },
-    {
-      id: 3,
-      name: "Mahsulot nomi 3",
-      description: "Mahsulot haqida qisqacha ma'lumot",
-           image: satinImg
+  // API dan mahsulotlarni olish
+useEffect(() => {
+  fetch("http://localhost/tailorshop/Backend/api/products.php")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.data); // Mahsulotlar ro‘yxatini ko‘ramiz
 
-    },
-    {
-      id: 4,
-      name: "Mahsulot nomi 4",
-      description: "Mahsulot haqida qisqacha ma'lumot",
-           image: satinImg
+      // API ma'lumotlarini React kartochkalar uchun tayyorlash
+      const mappedProducts = data.data.map((item) => ({
+        id: item.id,
+        name: item.name,
+        description: item.short_description,
+        price: parseFloat(item.price),
+        discount_price: parseFloat(item.discount_price),
+        rating: parseFloat(item.rating),
+        review_count: item.review_count,
+        image: `http://localhost/tailorshop/Backend/${item.image_url}`,
+        is_favorite: Boolean(item.is_favorite)
+      }));
 
-    },
-    {
-      id: 5,
-      name: "Mahsulot nomi 5",
-      description: "Mahsulot haqida qisqacha ma'lumot",
-           image: satinImg
-
-    },
-  ];
+      setProducts(mappedProducts);
+    })
+    .catch((error) => console.error("Mahsulotlarni olishda xatolik:", error));
+}, []);
 
   return (
     <>
-    <section className="card_container">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    
+      <section className="card_container">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </section>
 
-    </section>
-     <div class="button">
-
-      <button className="yana">
-
-   <Link to="/yana" className="yana">yana</Link>
-
-</button>
-  </div>
+      <div className="button">
+        <button className="yana">
+          <Link to="/yana" className="yana">yana</Link>
+        </button>
+      </div>
     </>
   );
 };
