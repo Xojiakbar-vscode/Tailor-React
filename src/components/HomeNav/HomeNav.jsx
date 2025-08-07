@@ -1,72 +1,77 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./HomeNav.css";
-import logoImg from "../../assets/1.svg";
-import heroImg from "../../assets/img.png";
-import CartModal from "../../sotuv/CartModal/CartModal";
-import { Link } from "react-router-dom";
-
-import { HiOutlineUserCircle, HiBars3 } from "react-icons/hi2";
-
+// src/components/HomeNav/HomeNav.js
+import React, { useState, useRef } from 'react';
+import { HiOutlineUserCircle, HiBars3 } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
+import logoImg from '../../assets/1.svg';
+import heroImg from '../../assets/img.png';
+import CartModal from '../../sotuv/CartModal/CartModal';
+import UserSidebar from './UserSidebar/UserSidebar';
+import useAuth from '../../../hooks/useAuth';
+import './HomeNav.css';
 
 const HomeNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
+  const [showUserSidebar, setShowUserSidebar] = useState(false);
   const menuRef = useRef(null);
-
-
+  
+   const { user, loading, login, logout, register, updateProfile } = useAuth();
 
   // Tashqariga bosilganda yopish
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    if (isOpen) {
-      document.addEventListener("click", handleClickOutside);
-      return () => document.removeEventListener("click", handleClickOutside);
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
     }
-  }, [isOpen]);
+  };
 
   // Escape tugmasi bilan yopish
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setIsOpen(false);
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+      setShowUserSidebar(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
     };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
   }, []);
-    const [showCartModal, setShowCartModal] = useState(false);
+
   return (
     <div className="header">
       <header>
-        {/* Chap tomonda menyu tugmasi */}
         <div className="menu-area" ref={menuRef}>
           <button
-            className={`menu-btn ${isOpen ? "active" : ""}`}
+            className={`menu-btn ${isOpen ? 'active' : ''}`}
             onClick={() => setIsOpen(!isOpen)}
           >
             <HiBars3 className="menu-icon" />
             <span>Menu</span>
           </button>
 
-          <nav className={`navbar ${isOpen ? "open" : ""}`}>
-            <a href="#" onClick={() => setShowCartModal(true)}>Buyurtmalarni ko‘rish</a>
+          <nav className={`navbar ${isOpen ? 'open' : ''}`}>
+            <a href="#" onClick={() => setShowCartModal(true)}>Buyurtmalarni ko'rish</a>
             <Link to="/yana" className="yana">Mahsulotlar</Link>
           </nav>
         </div>
 
-        {/* O‘rtada logo */}``
         <div className="logo">
           <img src={logoImg} alt="Tailor Shop Logo" />
         </div>
 
-        {/* O‘ng tomonda user icon */}
         <div className="right-icons">
-          <HiOutlineUserCircle className="user-icon" />
+          <HiOutlineUserCircle 
+            className="user-icon" 
+            onClick={() => setShowUserSidebar(true)}
+          />
         </div>
       </header>
 
-      {/* Hero bo‘lim */}
       <section className="hero">
         <img src={heroImg} alt="Tikuvchilik mahsulotlari" className="none" />
         <div className="hero-content">
@@ -74,14 +79,26 @@ const HomeNav = () => {
           <p className="fade-in">
             Eng sifatli mahsulotlar — Tailor Shop Namangan da.
           </p>
-          
         </div>
         <div className="hero-spacer"></div>
       </section>
-       <CartModal
+
+      <CartModal
         show={showCartModal}
         onHide={() => setShowCartModal(false)}
       />
+
+      {showUserSidebar && (
+       <UserSidebar
+  user={user}
+  loading={loading}
+  onLogin={login}
+  onRegister={register}
+  onLogout={logout}
+  onUpdateProfile={updateProfile} // Yangi prop qo'shildi
+  onClose={() => setShowUserSidebar(false)}
+/>
+      )}
     </div>
   );
 };

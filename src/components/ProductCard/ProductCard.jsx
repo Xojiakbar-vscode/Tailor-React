@@ -3,6 +3,7 @@ import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import "./ProductCard.css";
 import { Link } from 'react-router-dom';
 
+
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [rating, setRating] = useState(5); // Default 5 yulduz

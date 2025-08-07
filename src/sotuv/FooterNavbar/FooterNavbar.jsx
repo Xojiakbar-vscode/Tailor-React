@@ -12,18 +12,23 @@ import User from "../../images/user.png";
 import { Link } from "react-router-dom";
 import CatalogModal from "../CatalogModal/CatalogModal";
 import CartModal from "../CartModal/CartModal";
+import UserSidebar from "../../components/HomeNav/UserSidebar/UserSidebar";
+import useAuth from "../../../hooks/useAuth";
 
 const FooterNavbar = () => {
   const [showCatalogModal, setShowCatalogModal] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
+  const [showUserSidebar, setShowUserSidebar] = useState(false); // ✅
+
+  const { user, loading, login, register, logout, updateProfile } = useAuth(); // ✅
 
   return (
     <div className="footer-navbar">
       {/* Bosh sahifa */}
-      <Link to="/" onClick={() => window.scrollTo(0, 0)} style={{textDecoration: "none"}}>
+      <Link to="/" onClick={() => window.scrollTo(0, 0)} style={{ textDecoration: "none" }}>
         <div>
           <img src={Logo} alt="Bosh sahifa" />
-          <p >Bosh sahifa</p>
+          <p>Bosh sahifa</p>
         </div>
       </Link>
 
@@ -43,14 +48,14 @@ const FooterNavbar = () => {
       <div
         className="katalog catalog-trigger-1"
         onClick={() => setShowCatalogModal(true)}
-        style={{ cursor: "pointer"}}
+        style={{ cursor: "pointer" }}
       >
-        <CiSearch className="Katicon"/>
+        <CiSearch className="Katicon" />
         <p>Katalog</p>
       </div>
 
       {/* Profil */}
-      <div>
+      <div onClick={() => setShowUserSidebar(true)} style={{ cursor: "pointer" }}>
         <img src={User} alt="Profil" />
         <p>Profil</p>
       </div>
@@ -64,6 +69,17 @@ const FooterNavbar = () => {
         show={showCartModal}
         onHide={() => setShowCartModal(false)}
       />
+      {showUserSidebar && (
+        <UserSidebar
+          user={user}
+          loading={loading}
+          onLogin={login}
+          onRegister={register}
+          onLogout={logout}
+          onUpdateProfile={updateProfile}
+          onClose={() => setShowUserSidebar(false)}
+        />
+      )}
     </div>
   );
 };
