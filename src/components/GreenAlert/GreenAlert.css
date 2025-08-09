@@ -1,0 +1,78 @@
+.green-alert {
+  position: fixed;
+  top: 20px;
+  z-index: 2000;
+  pointer-events: auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* joylashuv */
+.green-alert.from-right {
+  right: 20px;
+  left: auto;
+}
+.green-alert.from-left {
+  left: 20px;
+  right: auto;
+}
+
+/* animatsiya */
+@keyframes slideInFromRight {
+  from { transform: translateX(120%); opacity: 0; 
+}
+  to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInFromLeft {
+  from { transform: translateX(-120%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.green-alert.from-right .green-alert__content {
+  animation: slideInFromRight 360ms cubic-bezier(.2,.9,.2,1);
+}
+.green-alert.from-left .green-alert__content {
+  animation: slideInFromLeft 360ms cubic-bezier(.2,.9,.2,1);
+}
+.green-alert.from-right .green-alert__content {
+    background-color: red;
+    color: white;
+}
+.green-alert__content {
+  background: #e6f7eb; /* och yashil fon */
+  color: #0b6b2b;      /* qora-yashil matn */
+  border: 1px solid #bfe6c8;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(11,107,43,0.12);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 220px;
+  max-width: 380px;
+}
+
+.green-alert__dot {
+  width: 10px;
+  height: 10px;
+  background: #28a745; /* to'liq yashil */
+  border-radius: 50%;
+  flex: 0 0 10px;
+  box-shadow: 0 0 6px rgba(40,167,69,0.3);
+}
+
+.green-alert__text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.green-alert__close {
+  background: transparent;
+  border: none;
+  color: #0b6b2b;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}

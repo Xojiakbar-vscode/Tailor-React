@@ -1,57 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import CardHeartModal from "..//CardHeartModal/CardHeartModal";
-import GreenAlert from "../../components/GreenAlert/GreenAlert";
-
-const ProductCard = ({ product, userId, toggleFavorite, showAlert }) => {
-  const [rating] = useState(4); // Static rating for now
-
-  return (
-    <article className="product-card" data-aos="fade-up">
-      <div className="card">
-        <div
-          className={`heart ${product.is_favorite ? "active" : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleFavorite(product.id, product.is_favorite);
-          }}
-        >
-          {product.is_favorite ? <FaHeart color="red" /> : <FaRegHeart />}
-        </div>
-        <Link to={`/batafsil/${product.id}`} className="product-link">
-          <img
-            src={product.image}
-            alt={product.name || "Mahsulot rasmi"}
-            onError={(e) => { e.target.src = "/placeholder.png"; }}
-          />
-        </Link>
-      </div>
-      <h3>{product.name || "Nomsiz mahsulot"}</h3>
-      <p>{product.description || "Ma'lumot yo'q"}</p>
-      <div className="rating">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <FaStar
-            key={star}
-            className={star <= rating ? "checked" : ""}
-          />
-        ))}
-      </div>
-      <div className="price">
-        <p>{product.price ? product.price.toLocaleString("ru-RU") : 0} so'm</p>
-        <button
-          className="add-to-cart"
-          onClick={(e) => {
-            e.stopPropagation();
-            showAlert(`Mahsulot: ${product.name} buyurtma qilindi!`, "right");
-          }}
-        >
-          Buyurtma berish
-        </button>
-      </div>
-    </article>
-  );
-};
+import CardHeartModal from "../../sotuv/CardHeartModal/CardHeartModal";
+import GreenAlert from "../GreenAlert/GreenAlert";
+ // Alert komponentini ulash
+import "./ProductCard.css";
 
 const ProductCards = () => {
   const [products, setProducts] = useState([]);
@@ -61,12 +14,6 @@ const ProductCards = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [alertPos, setAlertPos] = useState("right");
-
-  const showAlert = (message, position = "right") => {
-    setAlertMsg(message);
-    setAlertPos(position);
-    setAlertVisible(true);
-  };
 
   const checkAuth = async () => {
     try {
@@ -118,7 +65,9 @@ const ProductCards = () => {
 
   const toggleFavorite = async (productId, currentFavorite) => {
     if (!userId) {
-      showAlert("Sevimlilarga qo'shish uchun tizimga kiring", "left");
+      setAlertMsg("Sevimlilarga qo‘shish uchun tizimga kiring");
+      setAlertPos("left");
+      setAlertVisible(true);
       return;
     }
 
@@ -144,13 +93,21 @@ const ProductCards = () => {
             p.id === productId ? { ...p, is_favorite: currentFavorite } : p
           )
         );
-        showAlert(result.message || "Xatolik yuz berdi", "left");
+        setAlertMsg(result.message || "Xatolik yuz berdi");
+        setAlertPos("left");
+        setAlertVisible(true);
       } else {
+        // Alert xabari
         if (currentFavorite) {
-          showAlert("Sevimlilardan o'chirildi", "right");
+          setAlertMsg("Sevimlilardan o‘chirildi");
+        setAlertPos("right");
+
         } else {
-          showAlert("Sevimlilarga qo'shildi", "left");
+          setAlertMsg("Sevimlilarga qo‘shildi");
+        setAlertPos("left");
+
         }
+        setAlertVisible(true);
       }
     } catch (error) {
       console.error("Toggle favorite error:", error);
@@ -159,46 +116,73 @@ const ProductCards = () => {
           p.id === productId ? { ...p, is_favorite: currentFavorite } : p
         )
       );
-      showAlert("Server bilan aloqa yo'q", "left");
+      setAlertMsg("Server bilan aloqa yo‘q");
+      setAlertPos("left");
+      setAlertVisible(true);
     }
   };
 
   const favoriteProducts = products.filter(p => p.is_favorite);
+    return (
+      <>
+        {/* Sevimlilarni ochish tugmasi */}
+      
 
-  return (
-    <>
-      <section className="card_container">
-        {products.length > 0 ? (
-          products.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              userId={userId}
-              toggleFavorite={toggleFavorite}
-              showAlert={showAlert}
-            />
-          ))
-        ) : (
-          <p>Mahsulotlar topilmadi</p>
-        )}
-      </section>
+        <section className="card_container">
+          {products.length > 0 ? (
+            products.map(product => (
+              <article key={product.id} className="product-card">
+                <div style={{position:"static"}}
+                  className={`heart ${product.is_favorite ? "active" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product.id, product.is_favorite);
+                  }}
+                >
+                  {product.is_favorite ? <FaHeart color="red" /> : <FaRegHeart />}
+                </div>
 
-      <GreenAlert
+                <Link to={`/batafsil/${product.id}`} className="product-link">
+                  <img
+                    src={product.image}
+                    alt={product.name || "Mahsulot rasmi"}
+                    onError={(e) => { e.target.src = "/placeholder.png"; }}
+                  />
+                  <h3>{product.name || "Nomsiz mahsulot"}</h3>
+                  <p>{product.price ? product.price.toLocaleString("ru-RU") : 0} so'm</p>
+                </Link>
+
+                <button
+                  className="add-to-cart"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    alert(`Mahsulot: ${product.name} buyurtma qilindi!`);
+                  }}
+                >
+                  Buyurtma berish
+                </button>
+              </article>
+            ))
+          ) : (
+            <p>Mahsulotlar topilmadi</p>
+          )}
+        </section>
+  <GreenAlert
         show={alertVisible}
         message={alertMsg}
         position={alertPos}
         duration={3000}
         onClose={() => setAlertVisible(false)}
       />
+        {/* Modal */}
+        <CardHeartModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          favorites={favoriteProducts}
+          onToggleFavorite={toggleFavorite}
+        />
+      </>
+    );
+  };
 
-      <CardHeartModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        favorites={favoriteProducts}
-        onToggleFavorite={toggleFavorite}
-      />
-    </>
-  );
-};
-
-export default ProductCards;
+  export default ProductCards;

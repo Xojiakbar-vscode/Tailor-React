@@ -1,66 +1,141 @@
-import { useState, useEffect } from 'react';
-import { Modal } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Header.css";
+
 import TailorLogo from "../../images/TailorLogo.png";
 import Katalog from "../../images/Katalog.png";
 import Search from "../../images/Search.png";
 import User from "../../images/user.png";
 import Savat from "../../images/Savat.png";
-import CatalogModal from '../CatalogModal/CatalogModal';
-import CartModal from '../CartModal/CartModal';
-import { Link } from 'react-router-dom';
-import UserSidebar from '../../components/HomeNav/UserSidebar/UserSidebar';
-import useAuth from '../../../hooks/useAuth';
-import { FaHeart } from 'react-icons/fa';
-import CardHeartModal from '../CardHeartModal/CardHeartModal';
-import axios from 'axios';
+
+import CatalogModal from "../CatalogModal/CatalogModal";
+import CartModal from "../CartModal/CartModal";
+import UserSidebar from "../../components/HomeNav/UserSidebar/UserSidebar";
+import CardHeartModal from "../CardHeartModal/CardHeartModal";
+
+import { Link } from "react-router-dom";
+import { FaHeart } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [showCatalogModal, setShowCatalogModal] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [showUserSidebar, setShowUserSidebar] = useState(false);
   const [showFavoritesModal, setShowFavoritesModal] = useState(false);
-  const [favoriteProducts, setFavoriteProducts] = useState([]);
+
+  const [products, setProducts] = useState([]);
+  const [userId, setUserId] = useState(null);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
-  const [error, setError] = useState(null);
 
-  const { user, loading: authLoading, login, register, logout, updateProfile } = useAuth();
-
-  useEffect(() => {
-    if (user?.id) {
-      fetchFavorites();
-    } else {
-      // Agar foydalanuvchi chiqib ketsa, sevimlilarni tozalash
-      setFavoriteProducts([]);
-    }
-  }, [user]);
-
-  const fetchFavorites = async () => {
+  // 🔹 Auth tekshirish
+  const checkAuth = async () => {
     try {
-      setLoadingFavorites(true);
-      setError(null);
-      const response = await axios.get(
-        `http://localhost/tailorshop/Backend/api/favorites.php?user_id=${user.id}`
+      const res = await fetch(
+        "http://localhost/tailorshop/Backend/api/check_auth.php",
+        { credentials: "include" }
       );
-      
-      if (response.data.success) {
-        setFavoriteProducts(response.data.data || []);
+      const data = await res.json();
+      if (data.authenticated) {
+        setUserId(data.user.id);
       } else {
-        throw new Error(response.data.message || 'Sevimlilarni yuklashda xatolik');
+        setUserId(null);
       }
     } catch (error) {
-      console.error('Sevimlilarni yuklashda xatolik:', error);
-      setError(error.message);
-      setFavoriteProducts([]);
+      console.error("Auth check error:", error);
+      setUserId(null);
+    }
+  };
+
+  // 🔹 Mahsulotlarni olish
+  const fetchProducts = async () => {
+    try {
+      setLoadingFavorites(true);
+      const res = await fetch(
+        "http://localhost/tailorshop/Backend/api/products.php",
+        { credentials: "include" }
+      );
+      const data = await res.json();
+      if (data.success) {
+        setProducts(
+          data.data.map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.short_description,
+            price: parseFloat(item.price),
+            image: item.image_url || "/placeholder.png",
+            is_favorite: Boolean(item.is_favorite),
+          }))
+        );
+      }
+    } catch (error) {
+      console.error("Fetch products error:", error);
     } finally {
       setLoadingFavorites(false);
     }
   };
 
+  useEffect(() => {
+    checkAuth();
+    fetchProducts();
+  }, []);
+
+  // 🔹 Like qo‘shish yoki olib tashlash
+  const toggleFavorite = async (productId, currentFavorite) => {
+    if (!userId) {
+      toast.info("Sevimlilarga qo‘shish uchun tizimga kiring.");
+      setShowUserSidebar(true);
+      return;
+    }
+
+    // Optimistik update
+    setProducts((prev) =>
+      prev.map((p) =>
+        p.id === productId ? { ...p, is_favorite: !currentFavorite } : p
+      )
+    );
+
+    try {
+      const method = currentFavorite ? "DELETE" : "POST";
+      const res = await fetch(
+        `http://localhost/tailorshop/Backend/api/products.php`,
+        {
+          method,
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ product_id: productId }),
+        }
+      );
+
+      const result = await res.json();
+      if (!result.success) {
+        // Agar xato bo‘lsa rollback qilamiz
+        setProducts((prev) =>
+          prev.map((p) =>
+            p.id === productId ? { ...p, is_favorite: currentFavorite } : p
+          )
+        );
+        toast.error(result.message || "Xatolik yuz berdi");
+      }
+    } catch (error) {
+      console.error("Toggle favorite error:", error);
+      // Rollback
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === productId ? { ...p, is_favorite: currentFavorite } : p
+        )
+      );
+      toast.error("Sevimlilarni yangilashda xatolik");
+    }
+  };
+
+  const favoriteProducts = products.filter((p) => p.is_favorite);
+
+  // 🔹 Sevimlilar ikonkasini bosganda
   const handleFavoriteClick = () => {
-    if (!user) {
-      setShowUserSidebar(true); // Agar foydalanuvchi tizimga kirmagan bo'lsa, login sahifasiga yo'naltirish
+    if (!userId) {
+      toast.info("Iltimos, tizimga kiring.");
+      setShowUserSidebar(true);
       return;
     }
     setShowFavoritesModal(true);
@@ -72,126 +147,95 @@ const Header = () => {
         {/* Logo */}
         <div className="logo-container">
           <Link to="/">
-            <img 
-              src={TailorLogo} 
-              alt="Tailor Shop Namangan" 
+            <img
+              src={TailorLogo}
+              alt="Tailor Shop Namangan"
               className="logo-image"
-              onError={(e) => {
-                e.target.src = '/placeholder-logo.png';
-              }}
             />
           </Link>
         </div>
-        
-        {/* Catalog Button */}
-        <button 
+
+        {/* Catalog */}
+        <button
           className="catalog-button"
           onClick={() => setShowCatalogModal(true)}
-          aria-label="Katalogni ochish"
         >
-          <img 
-            src={Katalog} 
-            alt="Catalog" 
-            className="catalog-icon"
-            onError={(e) => {
-              e.target.src = '/placeholder-icon.png';
-            }}
-          />
+          <img src={Katalog} alt="Catalog" className="catalog-icon" />
           <span>Katalog</span>
         </button>
-        
-        {/* Search Bar */}
+
+        {/* Search */}
         <div className="search-container">
           <input
             type="text"
             placeholder="Reyting baland tovar nomi"
             className="search-input"
-            aria-label="Qidiruv"
           />
-          <button className="search-button" aria-label="Qidiruvni boshlash">
-            <img 
-              src={Search} 
-              alt="Search" 
-              className="search-icon"
-              onError={(e) => {
-                e.target.src = '/placeholder-icon.png';
-              }}
-            />
+          <button className="search-button">
+            <img src={Search} alt="Search" className="search-icon" />
           </button>
         </div>
 
-        {/* Icons Group */}
+        {/* Icons */}
         <div className="icon-group">
-          {/* Favorites Icon */}
-          <div 
+          {/* Favorites */}
+          <div
             className="favorites-icon-container"
             onClick={handleFavoriteClick}
-            aria-label="Sevimlilar"
-            title="Sevimli mahsulotlar"
           >
-            <FaHeart className="header-icon heart-icon" />
-            {favoriteProducts.length > 0 && (
-              <span className="favorites-count">{favoriteProducts.length}</span>
+            {loadingFavorites ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <FaHeart
+                className="header-icon heart-icon"
+                color={favoriteProducts.length > 0 ? "red" : "gray"}
+              />
             )}
-            {loadingFavorites && <span className="loading-dot">...</span>}
+            {favoriteProducts.length > 0 && (
+              <span className="favorites-count">
+                {favoriteProducts.length}
+              </span>
+            )}
           </div>
-          
-          {/* User Icon */}
-          <img 
-            src={User} 
-            alt="Account" 
+
+          {/* User */}
+          <img
+            src={User}
+            alt="Account"
             className="header-icon"
             onClick={() => setShowUserSidebar(true)}
-            style={{ cursor: 'pointer' }}
-            onError={(e) => {
-              e.target.src = '/placeholder-user.png';
-            }}
-            aria-label="Foydalanuvchi hisobi"
-            title="Hisob"
+            style={{ cursor: "pointer" }}
           />
-          
-          {/* Cart Icon */}
-          <img 
-            src={Savat} 
-            alt="Cart" 
+
+          {/* Cart */}
+          <img
+            src={Savat}
+            alt="Cart"
             className="header-icon"
             onClick={() => setShowCartModal(true)}
-            style={{ cursor: 'pointer' }}
-            onError={(e) => {
-              e.target.src = '/placeholder-cart.png';
-            }}
-            aria-label="Savat"
-            title="Savat"
+            style={{ cursor: "pointer" }}
           />
         </div>
       </div>
 
       {/* Modals */}
-      <CatalogModal 
-        show={showCatalogModal} 
-        onHide={() => setShowCatalogModal(false)} 
+      <CatalogModal
+        show={showCatalogModal}
+        onHide={() => setShowCatalogModal(false)}
       />
-      
-      <CartModal 
-        show={showCartModal} 
-        onHide={() => setShowCartModal(false)} 
-      />
-      
+      <CartModal show={showCartModal} onHide={() => setShowCartModal(false)} />
+
       <CardHeartModal
         show={showFavoritesModal}
         onHide={() => setShowFavoritesModal(false)}
-        userId={user?.id}
-        onUpdate={fetchFavorites}
+        favorites={favoriteProducts}
+        onToggleFavorite={toggleFavorite}
       />
-      
+
       {showUserSidebar && (
         <UserSidebar
-          user={user}
-          loading={authLoading}
-          onLogin={login}
-          onRegister={register}
-          onLogout={logout}
-          onUpdateProfile={updateProfile}
+          user={null} // agar user ma’lumotlari bo‘lsa ulash mumkin
+          loading={false}
           onClose={() => setShowUserSidebar(false)}
         />
       )}
