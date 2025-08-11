@@ -346,7 +346,7 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .auth-form {
@@ -412,6 +412,7 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
@@ -420,13 +421,13 @@ header {
   position: fixed;
   top: 0;
   right: 0;
-  width: 350px;
+  width: auto;
   height: 100vh;
   background-color: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 10000;
   /* padding: 20px; */
-  overflow-y: auto;
+  overflow-y:hidden;
   transform: translateX(0);
   transition: transform 0.3s ease;
 }
@@ -439,7 +440,7 @@ header {
   background: none;
   border: none;
   cursor: pointer;
-  color: #666;
+  color: #666 !important;
 }
 
 .loading-spinner {

@@ -19,13 +19,13 @@ const MyComponent = () => {
         autoplay
         loop
         src={truckAnimation}
-        style={{ height: '300px', width: '300px' }}
+        style={{ height: 'auto', width: 'auto' }}
       />
        <Player
         autoplay
         loop
         src={dropDown}
-        style={{ height: '300px', width: '300px' }}
+        style={{ height: 'auto', width: 'auto' }}
       />
     </div>
   );
