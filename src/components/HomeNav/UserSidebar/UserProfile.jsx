@@ -9,7 +9,7 @@ const UserProfile = ({ user, onLogout, onUpdateProfile }) => {
   // Faqat birinchi marta yoki user.rasm_url o'zgarganda yangilash
   useEffect(() => {
     if (user.rasm_url) {
-      setProfileImage(`http://localhost/tailorshop/${user.rasm_url}`);
+      setProfileImage(`http://localhost/tailorshop/Backend${user.rasm_url}`);
     } else {
       setProfileImage('');
     }
