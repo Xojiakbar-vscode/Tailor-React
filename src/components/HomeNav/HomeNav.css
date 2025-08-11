@@ -341,7 +341,7 @@ header {
   position: absolute;
   top: 100%;
   right: 0;
-  width: 300px;
+  width: auto;
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -352,8 +352,11 @@ header {
 .auth-form {
   display: flex;
   flex-direction: column;
+  justify-content: start;
   gap: 15px;
   padding: 1rem;
+  width: 100%;
+  height: 100vh;
 }
 
 .auth-form h3 {
@@ -412,16 +415,19 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+ width: 100%;
   z-index: 999;
+  margin: 0;
+  padding: 0;
 }
 
 .user-sidebar-container {
   position: fixed;
   top: 0;
   right: 0;
-  width: auto;
+  max-width: 350px;
+  width: 100%;
+  min-width: 350px;
   height: 100vh;
   background-color: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
