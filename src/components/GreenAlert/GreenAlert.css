@@ -37,6 +37,7 @@
 .green-alert.from-right .green-alert__content {
     background-color: red;
     color: white;
+    border: none;
 }
 .green-alert__content {
   background: #e6f7eb; /* och yashil fon */

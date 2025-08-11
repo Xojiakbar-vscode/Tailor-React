@@ -4,12 +4,23 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import UserIcon from "../../images/user.png";
 import ProductImage from "../../assets/satin.png";
 import "./CartModal.css";
+import useAuth from '../../../hooks/useAuth';
+
+import UserProfile from "../../components/HomeNav/UserSidebar/UserProfile";
+import UserSidebar from "../../components/HomeNav/UserSidebar/UserSidebar";
+
+
 
 const CartModal = ({ show, onHide }) => {
   const [showOldOrders, setShowOldOrders] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [sideOpen, setSideOpen] = useState(false);
   const swipeBtnRef = useRef(null);
+    const [showUserSidebar, setShowUserSidebar] = useState(false);
+  
+  
+     const { user, loading, login, logout, register, updateProfile } = useAuth();
+  
 
   const confirmOrder = () => {
     setOrderConfirmed(true);
@@ -116,26 +127,19 @@ const CartModal = ({ show, onHide }) => {
 
         <section className="container-modal">
           {/* Chap panel */}
-          <aside className={`usersection ${sideOpen ? "open" : ""}`}>
-            <div className="img-user-container">
-              <img src={UserIcon} alt="Mijoz" />
-            </div>
-            <h2>Mijoz</h2>
-            <a href="tel:+998913560408">+998 (91) 356-04-08</a>
-            <div className="button-footer">
-              <button
-                onClick={() => setShowOldOrders(false)}
-                className={!showOldOrders ? "active" : ""}
-              >
-                Yangi buyurtmalar
-              </button>
-              <button
-                onClick={() => setShowOldOrders(true)}
-                className={showOldOrders ? "active" : ""}
-              >
-                Qilingan buyurtmalar
-              </button>
-            </div>
+          <aside className={`usersection ${sideOpen ? "open " : "none"}`}>
+         // CartModal.js
+<UserSidebar
+  user={user}
+  loading={loading}
+  onLogin={login}
+  onRegister={register}
+  onLogout={logout}
+  onUpdateProfile={updateProfile}
+  onClose={() => setSideOpen(false)}
+  showOldOrders={showOldOrders}
+  setShowOldOrders={setShowOldOrders}
+/>
           </aside>
 
           {/* O‘ng panel */}
@@ -217,5 +221,6 @@ const CartModal = ({ show, onHide }) => {
     </Modal>
   );
 };
+ 
 
 export default CartModal;

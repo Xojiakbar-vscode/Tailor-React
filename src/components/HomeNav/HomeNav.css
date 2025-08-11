@@ -353,6 +353,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 1rem;
 }
 
 .auth-form h3 {
@@ -424,7 +425,7 @@ header {
   background-color: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  padding: 20px;
+  /* padding: 20px; */
   overflow-y: auto;
   transform: translateX(0);
   transition: transform 0.3s ease;

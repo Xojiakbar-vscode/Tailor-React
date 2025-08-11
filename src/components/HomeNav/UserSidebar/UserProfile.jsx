@@ -1,30 +1,40 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 
-const UserProfile = ({ user, onLogout, onUpdateProfile }) => {
-  const [profileImage, setProfileImage] = useState('');
+const UserProfile = ({ user, onLogout, onUpdateProfile, showOldOrders, setShowOldOrders }) => {
+  const [profileImage, setProfileImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Faqat birinchi marta yoki user.rasm_url o'zgarganda yangilash
   useEffect(() => {
-    if (user.rasm_url) {
+    if (user?.rasm_url) {
       setProfileImage(`http://localhost/tailorshop/Backend${user.rasm_url}`);
     } else {
-      setProfileImage('');
+      setProfileImage("");
     }
-  }, [user.rasm_url]);
+  }, [user?.rasm_url]);
 
   const handleLogout = async () => {
-    const result = await onLogout();
-    if (!result.success) {
-      alert(result.message);
+    try {
+      const result = await onLogout();
+      if (!result?.success) {
+        alert(result?.message || "Chiqishda xatolik yuz berdi");
+      }
+    } catch (error) {
+      console.error("Chiqishda xatolik:", error);
+      alert("Chiqish jarayonida xatolik yuz berdi");
     }
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Fayl hajmini tekshirish (masalan, 2MB dan oshmasligi)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Rasm hajmi 2MB dan katta bo'lmasligi kerak");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result); // Vaqtincha preview
@@ -38,81 +48,149 @@ const UserProfile = ({ user, onLogout, onUpdateProfile }) => {
     setIsUploading(true);
     try {
       const formData = new FormData();
-      formData.append('image', file);
-      formData.append('userId', user.id);
+      formData.append("image", file);
+      formData.append("userId", user.id);
 
-      const response = await fetch('http://localhost/tailorshop/Backend/api/upload_profile_image.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
-      });
+      const response = await fetch(
+        "http://localhost/tailorshop/Backend/api/upload_profile_image.php",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
-      
+
       if (!response.ok || !data.imageUrl) {
-        throw new Error(data.message || 'Rasm yuklashda xatolik');
+        throw new Error(data.message || "Rasm yuklashda xatolik");
       }
 
-      // Asosiy holatni yangilash
       if (onUpdateProfile) {
         await onUpdateProfile({ ...user, rasm_url: data.imageUrl });
       }
-
-      // Bu yerda setProfileImage qilish shart emas, chunki useEffect yangi rasm_url bilan qayta render qiladi
     } catch (error) {
-      console.error('Rasm yuklashda xatolik:', error);
-      alert('Rasm yuklash muvaffaqiyatsiz tugadi');
-      // Rasm yuklash muvaffaqiyatsiz tugasa, oldingi rasmg qaytamiz
-      setProfileImage(user.rasm_url ? `http://localhost/tailorshop/${user.rasm_url}` : '');
+      console.error("Rasm yuklashda xatolik:", error);
+      alert("Rasm yuklash muvaffaqiyatsiz tugadi: " + error.message);
+      // Oldingi rasmini qayta tiklash
+      setProfileImage(
+        user?.rasm_url ? `http://localhost/tailorshop/Backend${user.rasm_url}` : ""
+      );
     } finally {
       setIsUploading(false);
     }
   };
 
   return (
-    <div className="user-profile">
-      <div className="profile-header">
-        <div className="profile-image-container">
-          {profileImage ? (
-            <img 
-              src={profileImage} 
-              alt={`${user.ism} ${user.familiya}`} 
-              className="profile-image"
-              style={{ opacity: isUploading ? 0.7 : 1 }}
-            />
-          ) : (
-            <FaRegCircleUser className="profile-icon" style={{ fontSize: '100px', color: '#ccc' }} />
-          )}
-
-          <button 
-            className="change-image-btn"
-            onClick={() => fileInputRef.current.click()}
-            disabled={isUploading}
-          >
-            {isUploading ? 'Yuklanmoqda...' : 'Rasmni o\'zgartirish'}
-          </button>
-          
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            accept="image/*"
-            style={{ display: 'none' }}
-            disabled={isUploading}
+    <aside className="usersection1">
+      <div className="img-user-container">
+        {profileImage ? (
+          <img
+            src={profileImage}
+            alt="Mijoz"
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
           />
-        </div>
-        <h2>{user.ism} {user.familiya}</h2>
+        ) : (
+          <FaRegCircleUser style={{ fontSize: "5rem", color: "#ccc" }} />
+        )}
+      </div>
+      
+      <h2 style={{ margin: "1rem 0 0.5rem" }}>
+        {user?.ism || "Ism"} {user?.familiya || "Familiya"}
+      </h2>
+      
+      <a 
+        href={`tel:${user?.telefon || "+998913560408"}`}
+        style={{ 
+          display: "block", 
+          marginBottom: "1rem",
+          color: "#333",
+          textDecoration: "none"
+        }}
+      >
+        {user?.telefon || "+998 (91) 356-04-08"}
+      </a>
+
+      {/* Rasmni o'zgartirish tugmasi */}
+      <button
+        className="change-image-btn"
+        onClick={() => fileInputRef.current.click()}
+        disabled={isUploading}
+        style={{
+          padding: "0.5rem 1rem",
+          backgroundColor: "#f0f0f0",
+          border: "1px solid #ddd",
+          borderRadius: "4px",
+          cursor: "pointer",
+          marginBottom: "1rem",
+          width: "100%"
+        }}
+      >
+        {isUploading ? "Yuklanmoqda..." : "Rasmni o'zgartirish"}
+      </button>
+      
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageChange}
+        accept="image/*"
+        style={{ display: "none" }}
+        disabled={isUploading}
+      />
+
+      {/* Yangi buyurtmalar / Qilingan buyurtmalar tugmalari */}
+      <div className="button-footer" style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
+        <button
+          onClick={() => setShowOldOrders(false)}
+          className={!showOldOrders ? "active" : ""}
+          style={{
+            flex: 1,
+            padding: "0.5rem",
+            border: "1px solid #ddd",
+            borderRadius: "4px",
+            backgroundColor: !showOldOrders ? "#4CAF50" : "#f0f0f0",
+            color: !showOldOrders ? "white" : "#333",
+            cursor: "pointer"
+          }}
+        >
+          Yangi buyurtmalar
+        </button>
+        <button
+          onClick={() => setShowOldOrders(true)}
+          className={showOldOrders ? "active" : ""}
+          style={{
+            flex: 1,
+            padding: "0.5rem",
+            border: "1px solid #ddd",
+            borderRadius: "4px",
+            backgroundColor: showOldOrders ? "#4CAF50" : "#f0f0f0",
+            color: showOldOrders ? "white" : "#333",
+            cursor: "pointer"
+          }}
+        >
+          Qilingan buyurtmalar
+        </button>
       </div>
 
-      <div className="user-info">
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Telefon:</strong> {user.telefon}</p>
-      </div>
-
-      <button onClick={handleLogout} className="logout-btn" disabled={isUploading}>
+      {/* Chiqish tugmasi */}
+      <button
+        onClick={handleLogout}
+        className="logout-btn"
+        disabled={isUploading}
+        style={{
+          marginTop: "1.5rem",
+          padding: "0.5rem 1rem",
+          backgroundColor: "#f44336",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+          width: "100%"
+        }}
+      >
         Chiqish
       </button>
-    </div>
+    </aside>
   );
 };
 
