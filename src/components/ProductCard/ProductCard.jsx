@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import CardHeartModal from "../CardHeartModal/CardHeartModal";
-import GreenAlert from "../../components/GreenAlert/GreenAlert";
+import CardHeartModal from "../../sotuv/CardHeartModal/CardHeartModal";
+import GreenAlert from "../GreenAlert/GreenAlert";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import "./ProductCard.css";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
